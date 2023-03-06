@@ -19,5 +19,5 @@ puts "Norman Bates"
 # print the total number of students
 print "Overall, we have "
 # note that print() does not add a new line character
-print 11
+print student_count
 print " great students."
