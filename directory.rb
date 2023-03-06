@@ -1,6 +1,3 @@
-# declare var student_count for number of students
-student_count = 11
-
 # create an array of students
 students = [
 "Dr. Hannibal Lecter",
@@ -32,4 +29,4 @@ puts students[9]
 puts students[10]
 
 # print the total number of students
-puts "Overall, we have #{student_count} great students."
+puts "Overall, we have #{students.count} great students."
