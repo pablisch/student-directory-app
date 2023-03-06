@@ -1,3 +1,6 @@
+# declare var student_count for number of students
+student_count = 11
+
 # first we print the list of students
 puts "The students of Villains Academy"
 puts "-------------"
