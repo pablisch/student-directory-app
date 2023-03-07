@@ -1,3 +1,17 @@
+students = [
+  {name: "Dr. Hannibal Lecter", cohort: :jan },
+  {name: "Darth Vader", cohort: :feb },
+  {name: "Nurse Ratchet", cohort: :nov },
+  {name: "Michael Corleone", cohort: :dec },
+  {name: "Alex DeLarge", cohort: :jul },
+  {name: "The Wicked Witch of the West", cohort: :feb },
+  {name: "Terminator", cohort: :jan },
+  {name: "Freddy Krueger", cohort: :mar },
+  {name: "The Joker", cohort: :feb },
+  {name: "Joffrey Baratheon", cohort: :nov },
+  {name: "Norman Bates", cohort: :feb }
+  ]
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -9,8 +23,8 @@ def input_students
   while !name.empty? do
     
     puts "Which cohort are they in?"
-    cohort = gets.chomp
-    cohort = "unspecified" if cohort.empty?
+    cohort = gets.chomp.to_sym
+    cohort = :unspecified if cohort.empty?
     puts "Now we have #{students.count} students"
     # add the student hash to the array
     students << {name: name, cohort: cohort}
@@ -49,7 +63,7 @@ def print_footer(students)
   puts "Overall, we have #{students.count} great students.".center(40)
 end
 
-students = input_students
+# students = input_students
 # call methods to print out all student list components
 print_header
 print_list(students)
