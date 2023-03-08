@@ -41,10 +41,23 @@ def input_students
   puts "To finish, just hit return twice"
   name = STDIN.gets.chomp
   while !name.empty? do
-    @students << {name: name, cohort: :november}
+    create_students_array(name)
     puts "Now we have #{@students.count} student#{"s" if @students.size > 1}"
     name = STDIN.gets.chomp
   end
+end
+
+def load_students(filename = "students.csv")
+  file = File.open(filename)
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
+    create_students_array(name)
+  end
+  file.close
+end
+
+def create_students_array(name, cohort = "March 2023")
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 def show_students
@@ -75,21 +88,16 @@ def save_students
   end
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename)
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << { name: name, cohort: cohort.to_sym }
-  end
-  file.close
-end
-
 def try_load_students
   if ARGV.first.nil?
     filename = "students.csv"
   else
     filename = ARGV.first
   end
+  file_handling(filename)
+end
+
+def file_handling(filename)
   if File.exist?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
