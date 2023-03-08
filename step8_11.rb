@@ -7,14 +7,15 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp
+
+  name = gets.tr("\n", "")
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
     students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} student#{"s" if students.size > 1}"
     # get another name from the user
-    name = gets.chomp
+    name = gets.tr("\n", "")
   end
   # return the array of students
   students
@@ -32,11 +33,13 @@ def print(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great student#{"s" if names.size > 1}"
 end
 
 
 students = input_students
-print_header
-print(students)
-print_footer(students)
+if students.size > 0
+  print_header
+  print(students)
+  print_footer(students)
+end
