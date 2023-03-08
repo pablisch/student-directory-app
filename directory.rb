@@ -5,11 +5,7 @@
 
 def print_menu
   puts
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
+  puts "1. Input the students", "2. Show the students", "3. Save the list to students.csv", "4. Load the list from students.csv", "9. Exit"
 end
 
 def interactive_menu
@@ -19,21 +15,14 @@ def interactive_menu
   end
 end
 
-def process(selection)
-  case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit
-  else
-    puts "I don't know what you meant, try again"
-  end
+def process(sele)
+  sele.to_i == 1 ? input_students :
+  sele.to_i == 2 ? show_students :
+  sele.to_i == 3 ? save_students :
+  sele.to_i == 4 ? load_students :
+  sele.to_i == 5 ? choose_filename :
+  sele.to_i == 9 ? exit : 
+  (puts "I don't know what you meant, try again")
 end
 
 def input_students
@@ -43,17 +32,34 @@ def input_students
   while !name.empty? do
     create_students_array(name)
     puts "Now we have #{@students.count} student#{"s" if @students.size > 1}"
+    puts "Add another or press ENTER to return to the main menu"
     name = STDIN.gets.chomp
   end
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename)
+def choose_filename
+  puts "choose a filename or type 'd' for the default (students.csv)"
+  input = STDIN.gets.chomp
+  filename = "#{input}.csv"
+  filename = "students.csv" if input.upcase == "D"
+  filename
+end
+
+def load_students
+  filename = choose_filename
+  if File.exists?(filename)
+    file = File.open(filename)
+  else
+    puts "No such file"
+    exit
+  end
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     create_students_array(name)
   end
   file.close
+  puts "#{@students.size} students have been loaded from #{filename}"
+  puts
 end
 
 def create_students_array(name, cohort = "March 2023")
@@ -80,34 +86,17 @@ def print_footer
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  filename = choose_filename
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
+  puts "#{@students.size} students have been saved to #{filename}"
 end
 
-def try_load_students
-  if ARGV.first.nil?
-    filename = "students.csv"
-  else
-    filename = ARGV.first
-  end
-  file_handling(filename)
-end
-
-def file_handling(filename)
-  if File.exist?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry, #{filename} doesn't exist."
-    exit
-  end
-end
-
-try_load_students
+load_students
 show_students
 interactive_menu
 
