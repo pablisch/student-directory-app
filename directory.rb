@@ -13,8 +13,6 @@ def print_menu
 end
 
 def interactive_menu
-  try_load_students
-  show_students
   loop do
     print_menu
     process(STDIN.gets.chomp)
@@ -87,8 +85,11 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = ARGV.first
-  return if filename.nil?
+  if ARGV.first.nil?
+    filename = "students.csv"
+  else
+    filename = ARGV.first
+  end
   if File.exist?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -98,5 +99,7 @@ def try_load_students
   end
 end
 
+try_load_students
+show_students
 interactive_menu
 
