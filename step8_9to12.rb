@@ -1,6 +1,8 @@
 # Solution to Makers' precourse Week 4 Step 8 Task 11
 # https://makersacademy.teachable.com/courses/256825/lectures/3989219
 
+
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
