@@ -38,21 +38,25 @@ def input_students
 end
 
 def choose_filename
-  puts "choose a filename or type 'd' for the default (students.csv)"
+  puts "choose a csv filename or type 'd' for the default (students.csv)"
   input = STDIN.gets.chomp
-  filename = "#{input}.csv"
-  filename = "students.csv" if input.upcase == "D"
+  if input.upcase == "D"
+    filename = "students.csv"
+  elsif input[-4, 4] == ".csv"
+    filename = input
+  else
+    filename = "#{input}.csv"
+  end
   filename
 end
 
 def load_students
   filename = choose_filename
-  if File.exists?(filename)
-    file = File.open(filename)
-  else
+  unless File.exists?(filename)
     puts "No such file"
     exit
   end
+  file = File.open(filename)
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     create_students_array(name)
