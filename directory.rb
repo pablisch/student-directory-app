@@ -62,12 +62,6 @@ def load_students
   CSV.foreach(filename) do |row|
     @students << {name: row[0], cohort: row[1]}
   end
-  # File.open(filename, "r") do |file|
-  #   file.readlines.each do |line|
-  #     name, cohort = line.chomp.split(",")
-  #     create_students_array(name)
-  #   end
-  # end
   puts "#{@students.size} students have been loaded from #{filename}"
   puts
 end
@@ -100,12 +94,6 @@ def save_students
   CSV.open(filename, "w") do |csv| 
     @students.each { |student| csv << [student[:name], student[:cohort]] } 
   end
-  # file = File.open(filename, "w")
-  # @students.each do |student|
-  #   student_data = [student[:name], student[:cohort]]
-  #   csv_line = student_data.join(",")
-  #   file.puts csv_line
-  # end
   puts "#{@students.size} students have been saved to #{filename}"
 end
 
