@@ -1,1 +1,1 @@
-_="_=%p;puts _%%_";puts _%_
+File.open("quine.rb") { |file| puts file.readlines }
