@@ -50,25 +50,9 @@ def choose_filename
   filename
 end
 
-# def load_students
-#   filename = choose_filename
-#   unless File.exists?(filename)
-#     puts "No such file"
-#     exit
-#   end
-#   file = File.open(filename)
-#   file.readlines.each do |line|
-#     name, cohort = line.chomp.split(",")
-#     create_students_array(name)
-#   end
-#   file.close
-#   puts "#{@students.size} students have been loaded from #{filename}"
-#   puts
-# end
-
 def load_students
   filename = choose_filename
-  unless File.exists?(filename)
+  unless File.exist?(filename)
     puts "No such file"
     exit
   end
